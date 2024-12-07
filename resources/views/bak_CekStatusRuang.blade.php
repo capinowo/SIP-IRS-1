@@ -67,53 +67,50 @@
         <div class="card shadow-sm">
             <h5 class="card-header bg-teal text-white text-center">Cek Status Pembagian Ruang Kelas</h5>
             <div class="card-body d-flex flex-column">
-                <form action="{{ route('ruang.store') }}" method="POST">
-                    @csrf
-                    <!-- Dropdown Prodi -->
-                    <div class="mb-3">
-                        <label class="fw-bold">Program Studi</label>
-                        <select name="prodi" class="form-select" id="selectProdi" required>
-                            <option value="">Pilih Program Studi</option>
-                            <option value="Biologi">Biologi</option>
-                            <option value="Bioteknologi">Bioteknologi</option>
-                            <option value="Fisika">Fisika</option>
-                            <option value="Kimia">Kimia</option>
-                            <option value="Matematika">Matematika</option>
-                            <option value="Informatika">Informatika</option>
-                            <option value="Statistika">Statistika</option>
-                        </select>
-                    </div>
+                <!-- Dropdown Prodi -->
+                <div class="mb-3">
+                    <label class="fw-bold">Program Studi</label>
+                    <select name="prodi" class="form-select" id="selectProdi" required>
+                        <option value="">Pilih Program Studi</option>
+                        <option value="Biologi">Biologi</option>
+                        <option value="Bioteknologi">Bioteknologi</option>
+                        <option value="Fisika">Fisika</option>
+                        <option value="Kimia">Kimia</option>
+                        <option value="Matematika">Matematika</option>
+                        <option value="Informatika">Informatika</option>
+                        <option value="Statistika">Statistika</option>
+                    </select>
+                </div>
 
-                    <!-- Tabel -->
-                    <table class="table table-bordered mt-4">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Ruang</th>
-                                <th>Kapasitas</th>
-                                <th>Program Studi</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="statusRuang">
-                            @foreach($statusRuang as $index => $data)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $data->nama }}</td>
-                                <td>{{ $data->kapasitas }}</td>
-                                <td>{{ $data->nama_prodi }}</td>
-                                <td>
-                                <form action="{{ route('cancel.ruang') }}" method="POST">
-                                    @csrf <!-- Token CSRF untuk keamanan -->
-                                    <input type="hidden" name="nama_ruang" value="{{ $data->nama  }}"> 
-                                    <button type="submit" class="btn btn-primary mb-2">Batalkan</button>
-                                </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </form>
+                <!-- Tabel -->
+                <table class="table table-bordered mt-4">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Ruang</th>
+                            <th>Kapasitas</th>
+                            <th>Program Studi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="statusRuang">
+                        @foreach($statusRuang as $index => $data)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $data->nama }}</td>
+                            <td>{{ $data->kapasitas }}</td>
+                            <td>{{ $data->nama_prodi }}</td>
+                            <td>
+                            <form action="{{ route('cancel.ruang') }}" method="POST">
+                                @csrf <!-- Token CSRF untuk keamanan -->
+                                <input type="hidden" name="nama_ruang" value="{{ $data->nama  }}"> 
+                                <button type="submit" class="btn btn-primary mb-2">Batalkan</button>
+                            </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

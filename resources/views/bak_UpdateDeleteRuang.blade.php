@@ -97,11 +97,66 @@
                                 <td>{{ $ruang->nama }}</td>
                                 <td>{{ $ruang->kapasitas }}</td>
                                 <td>
-                                    <a href="{{ route('update.ruang', ['nama' => $ruang->nama]) }}" class="btn btn-primary">
-                                        Aksi
-                                    </a>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal{{ $ruang->id_ruang }}">
+                                        Update
+                                    </button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $ruang->id_ruang }}">
+                                        Hapus
+                                    </button>
                                 </td>
                             </tr>
+                            <!-- Update Modal -->
+                            <div class="modal fade" id="updateModal{{ $ruang->id_ruang }}" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Update Ruang {{ $ruang->nama }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('update.ruang') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="id_ruang" value="{{ $ruang->id_ruang }}">
+                                                <div class="mb-3">
+                                                    <label for="nama" class="form-label">Nama Ruang</label>
+                                                    <input type="text" class="form-control" id="nama" name="nama" value="{{ $ruang->nama }}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="kapasitas" class="form-label">Kapasitas</label>
+                                                    <input type="number" class="form-control" id="kapasitas" name="kapasitas" value="{{ $ruang->kapasitas }}" required>
+                                                </div>
+                                                <div class="text-end">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Delete Modal -->
+                            <div class="modal fade" id="deleteModal{{ $ruang->id_ruang }}" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Hapus Ruang {{ $ruang->nama }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('delete.ruang') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="id_ruang" value="{{ $ruang->id_ruang }}">
+                                                <p class="mb-3">Apakah Anda yakin ingin menghapus ruang {{ $ruang->nama }}?</p>
+                                                <div class="text-end">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             @endforeach
                         </tbody>
                     </table>
