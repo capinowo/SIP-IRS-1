@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BAK_PembagianruangController;
 use App\Http\Controllers\Kaprodi_JadwalKuliahControler;
 use App\Http\Controllers\KaprodiControler;
+use App\Http\Controllers\KalenderAkademikController;
 use App\Http\Controllers\IRSController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\Mhs_PengisianIRSController;
@@ -155,7 +156,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/draftIRS', [Mhs_PengisianIRSController::class, 'draftIRS'])->name('mhs_draftIRS');
     Route::post('/konfirmasi-irs', [Mhs_PengisianIRSController::class, 'konfirmasiIRS'])->name('konfirmasi_irs');
     Route::get('/cetak-pdf/{semester}', [Mhs_PengisianIRSController::class, 'cetak_pdf'])->name('cetak.pdf');
-    // Route::get('/pengambilanMatkul', [Mhs_PengisianIRSController::class, 'indexAmbilMatkul'])->name('pengambilanMatkul');
+    
+    //controller kalender akademik
+    Route::get('/kalender_akademik', [KalenderAkademikController::class, 'index'])->name('kalender_akademik');
 });
 
 // Commented Routes at the Bottom for Reference
